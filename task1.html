@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Profile Card</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f0f4f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      width: 300px;
+      box-shadow: 0 0 10px gray;
+      text-align: center;
+    }
+
+    .card img {
+      width: 100%;
+      border-radius: 8px;
+    }
+
+    .more {
+      display: none;
+      margin-top: 10px;
+      text-align: left;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 8px 16px;
+      background: green;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: darkgreen;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <img src="https://img.freepik.com/premium-photo/software-programmer-girl-office-work-vector-design-dark-computer-desk-workspace-woman_608477-792.jpg" alt="Profile">
+    <h2>Madhu Sarvani</h2>
+    <p>Student|Web Developer</p>
+
+    <div class="more" id="info">
+      <p>I love building small projects and learning web development. I enjoy working with HTML, CSS, and JavaScript!</p>
+    </div>
+
+    <button onclick="showMore()">Show More</button>
+  </div>
+
+  <script>
+    let visible = false;
+    function showMore() {
+      let info = document.getElementById("info");
+      let btn = document.querySelector("button");
+
+      visible = !visible;
+      info.style.display = visible ? "block" : "none";
+      btn.textContent = visible ? "Show Less" : "Show More";
+    }
+  </script>
+
+</body>
+</html>
