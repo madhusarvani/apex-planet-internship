@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Image Gallery</title>
+  <style>
+    body {
+      font-family: sans-serif; 
+      margin: 0;
+       background: #f0f0f0;
+    }
+    header {
+      background: #007acc; 
+      color: white; 
+      padding: 1em;
+       text-align: center;
+    }
+    main {
+      max-width: 900px;
+       margin: 20px auto;
+        padding: 20px; 
+        background: white;
+      border-radius: 10px; 
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    form, .gallery { margin-bottom: 20px; }
+    input, button {
+      margin: 5px 0;
+       padding: 10px;
+        font-size: 1em; 
+        width: 100%;
+    }
+    button { background: #007acc; 
+    color: white; 
+    border: none;
+     cursor: pointer; }
+    .gallery {
+      display: grid; 
+      gap: 10px;
+       grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    }
+    .item {
+      position: relative; 
+      background: #fff; 
+      border-radius: 8px; 
+      overflow: hidden;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+       text-align: center; 
+       cursor: pointer;
+    }
+    .item img { width: 100%;
+     height: 120px; 
+     object-fit: cover; }
+    .caption { padding: 6px;
+     font-size: 0.9em; }
+    .delete {
+      position: absolute;
+       top: 6px; 
+       right: 6px; 
+       background: red;
+      color: white;
+       border: none; 
+       padding: 4px 6px;
+        border-radius: 5px;
+         cursor: pointer;
+    }
+    #modal {
+      display: none;
+       position: fixed; 
+       top: 0;
+        left: 0;
+         right: 0;
+          bottom: 0;
+      background: rgba(0,0,0,0.8);
+       justify-content: center; 
+       align-items: center;
+    }
+    #modal img {
+      max-width: 90vw;
+       max-height: 80vh;
+        border: 5px solid white;
+    }
+  </style>
+</head>
+<body>
+  <header><h1>Image Gallery</h1></header>
+  <main>
+    <form id="imageForm">
+      <input type="url" id="imageUrl" placeholder="Image URL" />
+      <input type="file" id="imageFile" accept="image/*" />
+      <input type="text" id="imageCaption" placeholder="Caption (optional)" />
+      <button type="submit">Add Image</button>
+    </form>
+
+    <div class="gallery" id="gallery"></div>
+  </main>
+
+  <div id="modal" onclick="this.style.display='none'">
+    <img id="modalImg" />
+  </div>
+
+  <script>
+    const form = document.getElementById('imageForm');
+    const gallery = document.getElementById('gallery');
+    const modal = document.getElementById('modal');
+    const modalImg = document.getElementById('modalImg');
+
+    form.onsubmit = e => {
+      e.preventDefault();
+      const url = document.getElementById('imageUrl').value.trim();
+      const file = document.getElementById('imageFile').files[0];
+      const caption = document.getElementById('imageCaption').value.trim();
+
+      if (!url && !file) return alert('Provide an image URL or file');
+
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = e => addImage(e.target.result, caption);
+        reader.readAsDataURL(file);
+      } else if (/^https?:\/\//.test(url)) {
+        addImage(url, caption);
+      } else {
+        alert('Invalid URL');
+      }
+
+      form.reset();
+    };
+
+    function addImage(src, caption) {
+      const item = document.createElement('div');
+      item.className = 'item';
+
+      item.innerHTML = `
+        <img src="${src}" alt="${caption || 'Image'}">
+        ${caption ? `<div class="caption">${caption}</div>` : ''}
+        <button class="delete">X</button>
+      `;
+
+      item.querySelector('img').onclick = () => {
+        modal.style.display = 'flex';
+        modalImg.src = src;
+      };
+
+      item.querySelector('.delete').onclick = e => {
+        e.stopPropagation();
+        item.remove();
+      };
+
+      gallery.appendChild(item);
+    }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') modal.style.display = 'none';
+    });
+  </script>
+</body>
+</html>
