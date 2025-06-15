@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Persona Mirror – Mood-Based UI Transformation</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+</head>
+<body data-mood="neutral">
+  <header>
+    <div class="header-container" role="banner">
+      <div class="logo">Persona Mirror</div>
+      <nav>
+        <a href="#main">Home</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" role="main">
+    <h1>Persona Mirror</h1>
+    <p class="subtitle">Select your mood and see the UI transform to reflect your inner persona.</p>
+
+    <label for="moodSelector">Choose Your Mood:</label>
+    <select id="moodSelector">
+      <option value="neutral" selected>Neutral</option>
+      <option value="happy">Happy</option>
+      <option value="calm">Calm</option>
+      <option value="sad">Sad</option>
+      <option value="energetic">Energetic</option>
+    </select>
+    <p id="moodHelp" class="visually-hidden">Selecting a mood updates the interface.</p>
+
+    <section class="persona-card" aria-live="polite">
+      <img id="moodImage" class="mood-image" src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/aa59a337-004e-4d68-a9df-138ff6b1e565.png" alt="Neutral face icon" />
+      <div id="moodEmoji" class="emoji">😐</div>
+      <h2 id="moodTitle" class="mood-title">Neutral</h2>
+      <p id="moodDescription" class="mood-description">
+        You feel steady and composed – balanced in thought and emotion. This is your equilibrium state.
+      </p>
+    </section>
+  </main>
+
+  <section id="about" class="info-section">
+    <p>
+      Persona Mirror is a mood-based UI transformation experience. Using JavaScript, HTML, and CSS, the UI dynamically morphs to reflect your current mood.
+    </p>
+  </section>
+
+  <section id="contact" class="info-section">
+    <p>
+      Created by <strong>Madhu Sarvani</strong>. Contact: <a href="mailto:madhusarvani626@gmail.com">madhusarvani626@gmail.com</a>
+    </p>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
